@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BodasRouteImport } from './routes/bodas'
+import { Route as DescubreRouteImport } from './routes/descubre'
+import { Route as ReelsRouteImport } from './routes/reels'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BodasRoute = BodasRouteImport.update({
+  id: '/bodas',
+  path: '/bodas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DescubreRoute = DescubreRouteImport.update({
+  id: '/descubre',
+  path: '/descubre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReelsRoute = ReelsRouteImport.update({
+  id: '/reels',
+  path: '/reels',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bodas': typeof BodasRoute
+  '/descubre': typeof DescubreRoute
+  '/reels': typeof ReelsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bodas': typeof BodasRoute
+  '/descubre': typeof DescubreRoute
+  '/reels': typeof ReelsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bodas': typeof BodasRoute
+  '/descubre': typeof DescubreRoute
+  '/reels': typeof ReelsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/bodas' | '/descubre' | '/reels'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/bodas' | '/descubre' | '/reels'
+  id: '__root__' | '/' | '/bodas' | '/descubre' | '/reels'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BodasRoute: typeof BodasRoute
+  DescubreRoute: typeof DescubreRoute
+  ReelsRoute: typeof ReelsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bodas': {
+      id: '/bodas'
+      path: '/bodas'
+      fullPath: '/bodas'
+      preLoaderRoute: typeof BodasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/descubre': {
+      id: '/descubre'
+      path: '/descubre'
+      fullPath: '/descubre'
+      preLoaderRoute: typeof DescubreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reels': {
+      id: '/reels'
+      path: '/reels'
+      fullPath: '/reels'
+      preLoaderRoute: typeof ReelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BodasRoute: BodasRoute,
+  DescubreRoute: DescubreRoute,
+  ReelsRoute: ReelsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
