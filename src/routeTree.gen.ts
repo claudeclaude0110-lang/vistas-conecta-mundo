@@ -12,7 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BodasRouteImport } from './routes/bodas'
 import { Route as DescubreRouteImport } from './routes/descubre'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as ReelsRouteImport } from './routes/reels'
+import { Route as ChatsIndexRouteImport } from './routes/chats.index'
+import { Route as ChatsIdRouteImport } from './routes/chats.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,9 +32,24 @@ const DescubreRoute = DescubreRouteImport.update({
   path: '/descubre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReelsRoute = ReelsRouteImport.update({
   id: '/reels',
   path: '/reels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatsIndexRoute = ChatsIndexRouteImport.update({
+  id: '/chats/',
+  path: '/chats/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatsIdRoute = ChatsIdRouteImport.update({
+  id: '/chats/$id',
+  path: '/chats/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -39,34 +57,68 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bodas': typeof BodasRoute
   '/descubre': typeof DescubreRoute
+  '/perfil': typeof PerfilRoute
   '/reels': typeof ReelsRoute
+  '/chats/$id': typeof ChatsIdRoute
+  '/chats/': typeof ChatsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bodas': typeof BodasRoute
   '/descubre': typeof DescubreRoute
+  '/perfil': typeof PerfilRoute
   '/reels': typeof ReelsRoute
+  '/chats/$id': typeof ChatsIdRoute
+  '/chats': typeof ChatsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bodas': typeof BodasRoute
   '/descubre': typeof DescubreRoute
+  '/perfil': typeof PerfilRoute
   '/reels': typeof ReelsRoute
+  '/chats/$id': typeof ChatsIdRoute
+  '/chats/': typeof ChatsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bodas' | '/descubre' | '/reels'
+  fullPaths:
+    | '/'
+    | '/bodas'
+    | '/descubre'
+    | '/perfil'
+    | '/reels'
+    | '/chats/$id'
+    | '/chats/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bodas' | '/descubre' | '/reels'
-  id: '__root__' | '/' | '/bodas' | '/descubre' | '/reels'
+  to:
+    | '/'
+    | '/bodas'
+    | '/descubre'
+    | '/perfil'
+    | '/reels'
+    | '/chats/$id'
+    | '/chats'
+  id:
+    | '__root__'
+    | '/'
+    | '/bodas'
+    | '/descubre'
+    | '/perfil'
+    | '/reels'
+    | '/chats/$id'
+    | '/chats/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BodasRoute: typeof BodasRoute
   DescubreRoute: typeof DescubreRoute
+  PerfilRoute: typeof PerfilRoute
   ReelsRoute: typeof ReelsRoute
+  ChatsIdRoute: typeof ChatsIdRoute
+  ChatsIndexRoute: typeof ChatsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,11 +144,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DescubreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reels': {
       id: '/reels'
       path: '/reels'
       fullPath: '/reels'
       preLoaderRoute: typeof ReelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chats/': {
+      id: '/chats/'
+      path: '/chats'
+      fullPath: '/chats/'
+      preLoaderRoute: typeof ChatsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chats/$id': {
+      id: '/chats/$id'
+      path: '/chats/$id'
+      fullPath: '/chats/$id'
+      preLoaderRoute: typeof ChatsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -106,7 +179,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BodasRoute: BodasRoute,
   DescubreRoute: DescubreRoute,
+  PerfilRoute: PerfilRoute,
   ReelsRoute: ReelsRoute,
+  ChatsIdRoute: ChatsIdRoute,
+  ChatsIndexRoute: ChatsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
