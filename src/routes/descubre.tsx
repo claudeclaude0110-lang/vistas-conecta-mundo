@@ -33,8 +33,8 @@ function Descubre() {
   const { agregarMatch, sumarLike } = useLigo();
   const navigate = useNavigate();
 
-  const actual = lista[i % lista.length];
-  const siguiente = lista[(i + 1) % lista.length];
+  const actual = lista[i % lista.length]!;
+  const siguiente = lista[(i + 1) % lista.length]!;
 
   function decidir(dir: "no" | "like" | "super") {
     if (dir !== "no") {
