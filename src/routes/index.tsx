@@ -53,7 +53,7 @@ function Registro() {
   const [paso, setPaso] = useState(1);
   const [nombre, setNombre] = useState("");
   const [edad, setEdad] = useState("27");
-  const [ciudad, setCiudad] = useState(ciudades[0]);
+  const [ciudad, setCiudad] = useState<string>(ciudades[0] ?? "La Habana, Cuba");
   const [bio, setBio] = useState("");
   const [acepta, setAcepta] = useState(true);
   const [foto, setFoto] = useState<string>(fotos.p2);
