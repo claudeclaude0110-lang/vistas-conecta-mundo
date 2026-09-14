@@ -26,7 +26,7 @@ const stickers = ["😍", "😂", "🔥", "💃", "🇨🇺", "💋", "🥺", "�
 
 function Chat() {
   const { id } = useParams({ from: "/chats/$id" });
-  const perfil = perfiles.find((p) => p.id === id) ?? perfiles[0];
+  const perfil = perfiles.find((p) => p.id === id) ?? perfiles[0]!;
   const { chats, enviarMensaje } = useLigo();
   const mensajes = chats[perfil.id] ?? [];
   const [texto, setTexto] = useState("");
@@ -41,13 +41,13 @@ function Chat() {
 
   function mandar(t: string, regalo?: string) {
     if (!t.trim() && !regalo) return;
-    enviarMensaje(perfil.id, { de: "yo", texto: t, regalo });
+    enviarMensaje(perfil.id, regalo ? { de: "yo", texto: t, regalo } : { de: "yo", texto: t });
     setTexto("");
     setTimeout(
       () =>
         enviarMensaje(perfil.id, {
           de: "el",
-          texto: respuestasAuto[Math.floor(Math.random() * respuestasAuto.length)],
+          texto: respuestasAuto[Math.floor(Math.random() * respuestasAuto.length)]!,
         }),
       1200,
     );
